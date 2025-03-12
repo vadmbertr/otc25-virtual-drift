@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTC25, Drifters Predictions - Submit</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Submit predictions</h2>
+        
+        <form id="uploadForm" action="#" method="POST" enctype="multipart/form-data" onsubmit="return validateForm(event)">
+            <label for="email">Email (used only as an unique identifier)</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email" />
+            <p id="emailError" class="error" style="display: none;">Please enter a valid email address.</p>
+
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name" />
+            <p id="firstNameError" class="error" style="display: none;">Please enter your first name.</p>
+
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required placeholder="Enter your last name" />
+            <p id="lastNameError" class="error" style="display: none;">Please enter your last name.</p>
+
+            <label for="fileInput">GeoJSON predictions file</label>
+            <input type="file" id="fileInput" name="file" accept=".geojson" required />
+            <p id="fileError" class="error" style="display: none;">Please select a valid GeoJSON file.</p>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <p id="status"></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@terraformer/wkt/dist/t-wkt.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>
