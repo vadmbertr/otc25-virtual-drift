@@ -21,33 +21,38 @@
             The participant with the most successes across rounds and drifters will be declared the winner.
         </p>
 
-        <h2>Rules</h2>
-
-        <ul>
-            <li>Each participant can submit only one prediction file per round (participants can update their prediction during a round: if multiple predictions are submitted for the same round, the last attempt is used).</li>
-            <li>A round starts at 8:00 AM CET and ends at 6:00 PM CET on the same day.</li>
-            <li>A prediction consists of a GeoJSON file containing one "feature" per drifter.</li>
-            <li>Each "feature" must have a "geometry" field with a "Polygon" type.</li>
-            <li>Each "feature" must have a "properties" field with a "text" property whose value is the ID of the drifter.</li>
-            <li>Each "Polygon" must have an area smaller than or equal to 100 km<sup>2</sup>.</li>
-            <li>The prediction file must be uploaded using this <a href="./submit.html" target="_blank">form</a>.</li>
-            <li>The prediction file must be uploaded before the 6:00 PM deadline.</li>
-        </ul>
-
         <h2>Getting started</h2>
+        
+        <b><i>Full demo video <a href="#">here</a>!</i></b>
 
-        For each round (8:00 AM CET to 6:00 PM CET):
-        <ol>
-            <li>Visit the <a href="https://odl.bzh/DpY-yLwF" target="_blank">Ocean Virtual Laboratory portal</a>.</li>
+        <p>
+            For each round (8:00 AM CET to 6:00 PM CET):
             <ol>
-                <li>Play with the displayed data and the time wheel.</li>
-                <li>Draw your search areas.</li>
-                <li>Download them as a GeoJSON file.</li>
+                <li>Visit the <a href="https://odl.bzh/DpY-yLwF" target="_blank">Ocean Virtual Laboratory portal</a>.</li>
+                <ol>
+                    <li>Play with the displayed data and the time wheel.</li>
+                    <li>Draw your search areas (less than 100 km<sup>2</sup>!).</li>
+                    <li>Download them as a GeoJSON file.</li>
+                </ol>
+                <li>Submit your predictions before 6:00 PM CET using this <a href="./submit.html" target="_blank">form</a>.</li>
+                <li>At the end of the round, around 6:30 PM CET, check the updated <a href="./leaderboard.html" target="_blank">leaderboard</a>.</li>
             </ol>
-            <li>Submit your predictions before 6:00 PM CET using this <a href="./submit.html" target="_blank">form</a>.</li>
-            <li>At the end of the round, around 6:30 PM CET, check the updated <a href="./leaderboard.html" target="_blank">leaderboard</a>.</li>
-        </ol>
-        See a full demo video <a href="#">here</a>!
+        </p>
+
+        <h2>Detailed rules</h2>
+
+        <p>
+            <ul>
+                <li>Each participant can submit only one prediction file per round (participants can update their prediction during a round: if multiple predictions are submitted for the same round, the last attempt is used).</li>
+                <li>A round starts at 8:00 AM CET and ends at 6:00 PM CET on the same day.</li>
+                <li>A prediction consists of a GeoJSON file containing one "feature" per drifter.</li>
+                <li>Each "feature" must have a "geometry" field with a "Polygon" type.</li>
+                <li>Each "feature" must have a "properties" field with a "text" property whose value is the ID of the drifter.</li>
+                <li>Each "Polygon" must have an area smaller than or equal to 100 km<sup>2</sup>.</li>
+                <li>The prediction file must be uploaded using this <a href="./submit.html" target="_blank">form</a>.</li>
+                <li>The prediction file must be uploaded before the 6:00 PM deadline.</li>
+            </ul>
+        </p>
     </div>
 </body>
 </html>
