@@ -3,52 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OTC25, Drifters Predictions</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>OTC25,  Drifters Predictions</title>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
     <div class="container">
         <h2>Objective</h2>
 
         <p>
-            The goal of this mini-competition is to predict the position of 5 drifters one week into the future using their last observed week trajectory and collocated physical fields.
-            The drifters are deployed during the <a href="https://oceantrainingcourse2025.esa.int/" target="_blank">OTC25</a> cruise in the North Atlantic Ocean.
+            The goal of this mini-competition is to predict the position of 5 drifters one week into the future, based on their trajectories from the past week and collocated physical fields.
+            The drifters will be deployed during the <a href="https://oceantrainingcourse2025.esa.int/" target="_blank">OTC25</a> cruise in the North Atlantic Ocean.
         </p>
 
         <p>
-            Rather than predicting the exact position of the drifters, you are asked to estimate for each drifter an area of research where it should be found. <br>
-
-            Several rounds of the competition will be held every week for the same set of drifters.
+            Rather than predicting the exact position of the drifters, you are asked for each drifter to estimate a search area where it is likely to be found. <br>
+            Several rounds of the competition will be held every week for the same set of drifters. <br>
             The participant with the most successes across rounds and drifters will be declared the winner.
         </p>
 
         <h2>Rules</h2>
 
         <ul>
-            <li>Each participant can submit only one prediction file per round (participants can update their prediction during a round: if several predictions are attempted for the same round, the last attempt is used).</li>
-            <li>A round starts at 8.00 AM and ends at 6.00 PM on the same day.</li>
-            <li>A prediction consists of a GeoJSON file containing one "feature" per drifrer.</li>
+            <li>Each participant can submit only one prediction file per round (participants can update their prediction during a round: if multiple predictions are submitted for the same round, the last attempt is used).</li>
+            <li>A round starts at 8:00 AM CET and ends at 6:00 PM CET on the same day.</li>
+            <li>A prediction consists of a GeoJSON file containing one "feature" per drifter.</li>
             <li>Each "feature" must have a "geometry" field with a "Polygon" type.</li>
-            <li>Each "feature" must have a "properties" field with a "text" property whose value is the id of the drifter.</li>
-            <li>Each "Polygon" must have an area smaller or equal to 100 km^2</li>
+            <li>Each "feature" must have a "properties" field with a "text" property whose value is the ID of the drifter.</li>
+            <li>Each "Polygon" must have an area smaller than or equal to 100 km<sup>2</sup>.</li>
             <li>The prediction file must be uploaded using this <a href="./submit.html" target="_blank">form</a>.</li>
-            <li>The prediction file must be uploaded before the 6.00 PM deadline.</li>
+            <li>The prediction file must be uploaded before the 6:00 PM deadline.</li>
         </ul>
 
         <h2>Getting started</h2>
 
-        For each round (8.00 AM to 6.00 PM):
+        For each round (8:00 AM CET to 6:00 PM CET):
         <ol>
             <li>Visit the <a href="https://odl.bzh/DpY-yLwF" target="_blank">Ocean Virtual Laboratory portal</a>.</li>
             <ol>
                 <li>Play with the displayed data and the time wheel.</li>
-                <li>Draw your zones of research.</li>
+                <li>Draw your search areas.</li>
                 <li>Download them as a GeoJSON file.</li>
             </ol>
-            <li>Submit your predictions before 6.00 PM using this <a href="./submit.html" target="_blank">form</a>.</li>
-            <li>At the end of the round, check the updated <a href="./leaderboard.html" target="_blank">leaderboard</a>.</li>
+            <li>Submit your predictions before 6:00 PM CET using this <a href="./submit.html" target="_blank">form</a>.</li>
+            <li>At the end of the round, around 6:30 PM CET, check the updated <a href="./leaderboard.html" target="_blank">leaderboard</a>.</li>
         </ol>
-        See a full demo video <a>here</a>!
+        See a full demo video <a href="#">here</a>!
     </div>
 </body>
 </html>
