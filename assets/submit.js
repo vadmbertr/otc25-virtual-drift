@@ -1,6 +1,8 @@
 async function populatePopupContent() {
     const data = await getNextRound();
 
+    const popupElem = document.getElementById('popup');
+    popupElem.classList.add('warning');
     let popupText = 'The next round is not scheduled yet. Stay tuned!';
 
     if (data && data.length > 0) {
@@ -27,20 +29,28 @@ async function populatePopupContent() {
                 const diffMillis = target8AM.getTime() - currentTime;
                 const hours = Math.floor(diffMillis / (1000 * 60 * 60));
                 const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
-                document.getElementById('popup').classList.add('warning');
-                popupText = `Today round will opened at 8:00 AM CET, in ${hours} hours and ${minutes} minutes`;
+                popupText = `Today round will opened at 8:00 AM CET, come back in ${hours} hours and ${minutes} minutes...`;
             } else if (currentTime < target6PM.getTime()) {
                 const diffMillis = target6PM.getTime() - currentTime;
                 const hours = Math.floor(diffMillis / (1000 * 60 * 60));
                 const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
-                document.getElementById('popup').classList.add('ok');
-                popupText = `Today round will closed at 6:00 PM CET. ${hours} hours and ${minutes} minutes left!`;
+
+                popupElem.classList.add('ok');
+                popupElem.classList.remove('warning');
+                popupText = `Today round is opened! It will closed at 6:00 PM CET: ${hours} hours and ${minutes} minutes left!`;
+
+                const form = document.getElementById('uploadForm');
+                const inputs = form.querySelectorAll('input');
+                const button = form.querySelector('button');
+                for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].disabled = false;
+                }
+                button.disabled = false;
             } else {
                 const diffMillis = currentTime - target6PM.getTime();
                 const hours = Math.floor(diffMillis / (1000 * 60 * 60));
                 const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
-                document.getElementById('popup').classList.add('warning');
-                popupText = `Today round closed at 6:00 PM CET, ${hours} hours and ${minutes} minutes ago.`;
+                popupText = `Today round closed at 6:00 PM CET, ${hours} hours and ${minutes} minutes ago. Check the <a href="./leaderboard.html">leaderboard</a>!`;
             }
         } else {
             const dateString = new Intl.DateTimeFormat('en-US', {
@@ -114,7 +124,7 @@ function parseGeoJSON(geojson, roundId, participantId) {
 
     geojson.features.forEach((feature, index) => {
         if (feature.geometry.type === 'Polygon') {
-            const area = turf.area(feature) / 1e6;
+            const area = turf.area(feature) / 1e6;  // km^2
 
             if (area > 1000) {
                 predictionData.length = 0;
@@ -171,23 +181,20 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
         const affiliation = document.getElementById('affiliation').value;
         const file = document.getElementById('fileInput').files[0];
 
-        let { data: participantId, error: participantError } = await supabaseClient
+        await supabaseClient
             .from('participants')
             .insert(
                 { email: email, first_name: firstName, last_name: lastName, affiliation: affiliation }
-            )
-            .select('id');
+            );
+
+        const { data: participantId, error: participantError } = await supabaseClient
+            .from('participants')
+            .select('id')
+            .eq('email', email);
 
         if (participantError) {
-            let { data: participantId, error: participantError } = await supabaseClient
-                .from('participants')
-                .select('id')
-                .eq('email', email);
-
-            if (participantError) {
-                displayError(statusText, participantError);
-                return;
-            }
+            displayError(statusText, participantError);
+            return;
         }
 
         const reader = new FileReader();
@@ -209,7 +216,7 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
                     );
 
                 if (predictionError) {
-                    displayError(statusText, participantIdError);
+                    displayError(statusText, predictionError);
                     return;
                 }
 

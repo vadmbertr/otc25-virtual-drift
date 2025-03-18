@@ -55,11 +55,11 @@ sup {
     background: rgba(0, 0, 0, 0.6);
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
 
 .popup.warning {
     color: #d33;
-    cursor: not-allowed;
 }
 
 .popup.ok {
@@ -91,10 +91,6 @@ sup {
 
 .popup-close:hover {
     color: #d33;
-}
-
-.popup.warning .popup-close {
-    cursor: not-allowed;
 }
 
 .nav-arrows {

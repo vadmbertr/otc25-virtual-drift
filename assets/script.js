@@ -28,10 +28,7 @@ function updatePopupContent(newContent) {
 
 
 function closePopup() {
-    const input = document.querySelector('#popup.warning');
-    if (!input) {
-        document.getElementById('popup').style.display = 'none';
-    }
+    document.getElementById('popup').style.display = 'none';
 };
 
 

@@ -32,25 +32,25 @@
         
         <form id="uploadForm" action="#" method="POST" enctype="multipart/form-data" onsubmit="return validateForm(event)">
             <label for="email">Email (used only as an unique identifier) <b>*</b></label>
-            <input type="email" id="email" name="email" required placeholder="Enter your email (required)" />
+            <input type="email" id="email" name="email" required placeholder="Enter your email (required)" disabled />
             <p id="emailError" class="error" style="display: none;">Please enter a valid email address.</p>
 
             <label for="firstName">First Name <b>*</b></label>
-            <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name (required)" />
+            <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name (required)" disabled />
             <p id="firstNameError" class="error" style="display: none;">Please enter your first name.</p>
 
             <label for="lastName">Last Name <b>*</b></label>
-            <input type="text" id="lastName" name="lastName" required placeholder="Enter your last name (required)" />
+            <input type="text" id="lastName" name="lastName" required placeholder="Enter your last name (required)" disabled />
             <p id="lastNameError" class="error" style="display: none;">Please enter your last name.</p>
 
             <label for="affiliation">Affiliation (lab, team, company, etc...)</label>
-            <input type="text" id="affiliation" name="affiliation" required placeholder="Enter your affiliation (optional)" />
+            <input type="text" id="affiliation" name="affiliation" placeholder="Enter your affiliation (optional)" disabled />
 
             <label for="fileInput">GeoJSON predictions file <b>*</b></label>
-            <input type="file" id="fileInput" name="file" accept=".geojson" required />
+            <input type="file" id="fileInput" name="file" accept=".geojson" required disabled />
             <p id="fileError" class="error" style="display: none;">Please select a valid GeoJSON file.</p>
 
-            <button type="submit">Submit</button>
+            <button type="submit" disabled>Submit</button>
         </form>
 
         <p id="status"></p>
