@@ -21,14 +21,6 @@ async function getNextRound() {
 }
 
 
-window.onclick = function (event) {
-    const popup = document.getElementById("popup");
-    if (event.target === popup) {
-        closePopup();
-    }
-};
-
-
 function updatePopupContent(newContent) {
     const popupText = document.getElementById("popup-text");
     popupText.innerHTML += `${newContent}`;
@@ -36,7 +28,10 @@ function updatePopupContent(newContent) {
 
 
 function closePopup() {
-    document.getElementById("popup").style.display = "none";
+    const input = document.querySelector('#popup.warning');
+    if (!input) {
+        document.getElementById('popup').style.display = 'none';
+    }
 };
 
 

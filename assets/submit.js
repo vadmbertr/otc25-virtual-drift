@@ -27,16 +27,19 @@ async function populatePopupContent() {
                 const diffMillis = target8AM.getTime() - currentTime;
                 const hours = Math.floor(diffMillis / (1000 * 60 * 60));
                 const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('popup').classList.add('warning');
                 popupText = `Today round will opened at 8:00 AM CET, in ${hours} hours and ${minutes} minutes`;
             } else if (currentTime < target6PM.getTime()) {
                 const diffMillis = target6PM.getTime() - currentTime;
                 const hours = Math.floor(diffMillis / (1000 * 60 * 60));
                 const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('popup').classList.add('ok');
                 popupText = `Today round will closed at 6:00 PM CET. ${hours} hours and ${minutes} minutes left!`;
             } else {
                 const diffMillis = currentTime - target6PM.getTime();
                 const hours = Math.floor(diffMillis / (1000 * 60 * 60));
                 const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('popup').classList.add('warning');
                 popupText = `Today round closed at 6:00 PM CET, ${hours} hours and ${minutes} minutes ago.`;
             }
         } else {
@@ -59,7 +62,7 @@ function displayError(statusText, errorMessage) {
     console.error(errorMessage);
     statusText.className = 'error';
     statusText.innerText = errorMessage;
-}
+};
 
 
 function validateForm(event) {
@@ -139,7 +142,7 @@ function parseGeoJSON(geojson, roundId, participantId) {
 
 
 document.getElementById('uploadForm').addEventListener('submit', async function(event) {  
-    event.preventDefault(); // stops the page reload
+    event.preventDefault();
 
     if (validateForm(event)) {
 
