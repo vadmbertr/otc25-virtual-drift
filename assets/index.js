@@ -5,7 +5,7 @@ async function populatePopupContent() {
 
     if (data && data.length > 0) {
         const date = new Date(data[0].day);
-        const dateString = new Intl.DateTimeFormat('en-GB', {
+        const dateString = new Intl.DateTimeFormat('en-US', {
             day: 'numeric',
             month: 'long',
         }).format(date);

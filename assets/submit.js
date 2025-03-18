@@ -40,7 +40,7 @@ async function populatePopupContent() {
                 popupText = `Today round closed at 6:00 PM CET, ${hours} hours and ${minutes} minutes ago.`;
             }
         } else {
-            const dateString = new Intl.DateTimeFormat('en-GB', {
+            const dateString = new Intl.DateTimeFormat('en-US', {
                 day: 'numeric',
                 month: 'long',
             }).format(roundDate);
