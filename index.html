@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="popup-close" onclick="closePopup()">&times;</span>
+            <p id="popup-text"></p>
+        </div>
+    </div>
+
     <div class="container">
         <h2>Objective</h2>
 
@@ -20,8 +27,8 @@
         </p>
 
         <p>
-            Several rounds of predictions will be held every week for the same set of drifters. <br>
-            The mini-competition is due to start at the beginning of May, and the precise schedule of the rounds will be announced here at that time.
+            Several rounds of predictions will be held every week. <br>
+            <b>The mini-competition is due to start at the beginning of May</b>, and the precise schedule of the rounds will be announced here at that time.
         </p>
 
         <p>
@@ -38,10 +45,10 @@
                 <li>Visit the <a href="https://odl.bzh/DpY-yLwF" target="_blank">Ocean Virtual Laboratory portal</a>.</li>
                 <ol>
                     <li>Play with the displayed data and the time wheel.</li>
-                    <li>Draw your search areas (less than 100 km<sup>2</sup>!).</li>
+                    <li>Draw your search areas, each <b>smaller than 100 km<sup>2</sup></b>.</li>
                     <li>Download them as a GeoJSON file.</li>
                 </ol>
-                <li>Submit your predictions before 6:00 PM CET using this <a href="./submit.html" target="_blank">form</a>.</li>
+                <li>Submit your predictions <b>before 6:00 PM CET</b> using this <a href="./submit.html" target="_blank">form</a>.</li>
                 <li>At the end of the round, around 6:30 PM CET, check the updated <a href="./leaderboard.html" target="_blank">leaderboard</a>.</li>
             </ol>
         </p>
@@ -61,5 +68,9 @@
             </ul>
         </p>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/script.js"></script>
+    <script src="assets/index.js"></script>
 </body>
 </html>

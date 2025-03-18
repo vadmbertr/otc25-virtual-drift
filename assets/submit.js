@@ -1,8 +1,58 @@
-// script.js
+async function populatePopupContent() {
+    const data = await getNextRound();
 
-const SUPABASE_URL = 'https://bejcftxathhgnorothbj.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJlamNmdHhhdGhoZ25vcm90aGJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEzNDM0MTksImV4cCI6MjA1NjkxOTQxOX0.-3zrtrT_-AQV-7YwD8K8WYbpY4M05YAsnm_CC_3KPkA';
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    let popupText = 'The next round is not scheduled yet. Stay tuned!';
+
+    if (data && data.length > 0) {
+        const roundDate = new Date(data[0].day);
+        const today = new Date();
+
+        const isSameDay =
+            roundDate.getFullYear() === today.getFullYear() &&
+            roundDate.getMonth() === today.getMonth() &&
+            roundDate.getDate() === today.getDate();
+
+        if (isSameDay) {
+            const nowDateTime = new Date(today);
+
+            const target8AM = new Date(nowDateTime);
+            target8AM.setHours(8, 0, 0, 0);
+
+            const target6PM = new Date(nowDateTime);
+            target6PM.setHours(18, 0, 0, 0);
+
+            const currentTime = nowDateTime.getTime();
+
+            if (currentTime < target8AM.getTime()) {
+                const diffMillis = target8AM.getTime() - currentTime;
+                const hours = Math.floor(diffMillis / (1000 * 60 * 60));
+                const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
+                popupText = `Today round will opened at 8:00 AM CET, in ${hours} hours and ${minutes} minutes`;
+            } else if (currentTime < target6PM.getTime()) {
+                const diffMillis = target6PM.getTime() - currentTime;
+                const hours = Math.floor(diffMillis / (1000 * 60 * 60));
+                const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
+                popupText = `Today round will closed at 6:00 PM CET. ${hours} hours and ${minutes} minutes left!`;
+            } else {
+                const diffMillis = currentTime - target6PM.getTime();
+                const hours = Math.floor(diffMillis / (1000 * 60 * 60));
+                const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
+                popupText = `Today round closed at 6:00 PM CET, ${hours} hours and ${minutes} minutes ago.`;
+            }
+        } else {
+            const dateString = new Intl.DateTimeFormat('en-GB', {
+                day: 'numeric',
+                month: 'long',
+            }).format(roundDate);
+            popupText = `The next round is scheduled for ${dateString}.`;
+        }
+    }
+
+    updatePopupContent(popupText);
+}
+
+
+populatePopupContent();
 
 
 function displayError(statusText, errorMessage) {
@@ -13,6 +63,7 @@ function displayError(statusText, errorMessage) {
 
 
 function validateForm(event) {
+    let email = document.getElementById('email');
     let firstName = document.getElementById('firstName');
     let lastName = document.getElementById('lastName');
     let fileInput = document.getElementById('fileInput');
@@ -20,10 +71,15 @@ function validateForm(event) {
     let lastNameError = document.getElementById('lastNameError');
     let fileError = document.getElementById('fileError');
 
+    emailError.style.display = 'none';
     firstNameError.style.display = 'none';
     lastNameError.style.display = 'none';
-    emailError.style.display = 'none';
     fileError.style.display = 'none';
+
+    if (!email.validity.valid) {
+        emailError.style.display = 'block';
+        return false;
+    }
 
     if (!firstName.value.trim()) {
         firstNameError.style.display = 'block';
@@ -32,11 +88,6 @@ function validateForm(event) {
 
     if (!lastName.value.trim()) {
         lastNameError.style.display = 'block';
-        return false;
-    }
-
-    if (!email.validity.valid) {
-        emailError.style.display = 'block';
         return false;
     }
 
@@ -111,15 +162,16 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
             return;
         }
 
+        const email = document.getElementById('email').value;
         const firstName = document.getElementById('firstName').value;
         const lastName = document.getElementById('lastName').value;
-        const email = document.getElementById('email').value;
+        const affiliation = document.getElementById('affiliation').value;
         const file = document.getElementById('fileInput').files[0];
 
         let { data: participantId, error: participantError } = await supabaseClient
             .from('participants')
             .insert(
-                { email: email, first_name: firstName, last_name: lastName }
+                { email: email, first_name: firstName, last_name: lastName, affiliation: affiliation }
             )
             .select('id');
 
