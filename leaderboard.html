@@ -8,6 +8,13 @@
     <title>OTC25,  Drifters Predictions - Leaderboard</title>
 </head>
 <body>
+    <div id="popup-wrapper" hidden>
+        <div class="popup">
+            <span class="popup-close" onclick="closePopup()">&times;</span>
+            <div id="popup-content"></div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="nav-arrows">
             <a href="submit.html" class="arrow left">
@@ -35,6 +42,7 @@
         </table>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@terraformer/wkt/dist/t-wkt.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/script.js"></script>
     <script src="assets/leaderboard.js"></script>

@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-    <div id="popup" class="popup">
-        <div class="popup-content">
+    <div id="popup-wrapper">
+        <div class="popup">
             <span class="popup-close" onclick="closePopup()">&times;</span>
-            <p id="popup-text"></p>
+            <div id="popup-content"></div>
         </div>
     </div>
 
@@ -71,12 +71,20 @@
             <ul>
                 <li>Each participant can submit only one prediction file per round (participants can update their prediction during a round: if multiple predictions are submitted for the same round, the last attempt is used).</li>
                 <li>A round starts at 8:00 AM CET and ends at 6:00 PM CET on the same day.</li>
-                <li>A prediction consists of a GeoJSON file containing one "feature" per drifter.</li>
+                <li>A submission consists of a GeoJSON file containing one "feature" per drifter.</li>
                 <li>Each "feature" must have a "geometry" field with a "Polygon" type.</li>
                 <li>Each "feature" must have a "properties" field with a "text" property whose value is the ID of the drifter.</li>
                 <li>Each "Polygon" must have an area smaller than or equal to 100 km<sup>2</sup>.</li>
-                <li>The prediction file must be uploaded using this <a href="./submit.html" target="_blank">form</a>.</li>
-                <li>The prediction file must be uploaded before the 6:00 PM deadline.</li>
+                <li>The submission file must be uploaded using this <a href="./submit.html" target="_blank">form</a>.</li>
+                <li>The submission file must be uploaded before the 6:00 PM deadline.</li>
+                <li>A prediction is successful if the predicted area contains its drifter position.</li>
+                <li>The winner is determined as follows:</li>
+                <ol>
+                    <li>Highest total number of successes across all rounds and drifters,</li>
+                    <li>In case of ties: smallest sum of the successful prediction zone areas across rounds and drifters,</li>
+                    <li>In case of ties: smallest sum of the distances between the successful prediction zone's barycenter and the drifter's position across rounds and drifters,</li>
+                    <li>In case of ties: no coin flip, you will have the share the prize (if any).</li>
+                </ol>
             </ul>
         </p>
     </div>

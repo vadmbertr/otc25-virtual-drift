@@ -1,7 +1,7 @@
 async function populatePopupContent() {
     const data = await getNextRound();
 
-    const popupElem = document.getElementById('popup');
+    const popupElem = document.getElementById('popup-wrapper');
     popupElem.classList.add('warning');
     let popupText = 'The next round is not scheduled yet. Stay tuned!';
 

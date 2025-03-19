@@ -53,10 +53,22 @@ thead, tbody tr {
     table-layout: fixed;
 }
 
-table th:nth-child(1) ,td:nth-child(1) {
+#leaderboardTable th:nth-child(1), #leaderboardTable td:nth-child(1) {
     width: 10%;
 }
 
-table th:nth-child(3) ,td:nth-child(3) {
+#leaderboardTable th:nth-child(3), #leaderboardTable td:nth-child(3) {
     width: 20%;
+}
+
+#leaderboardTable td { 
+    cursor: pointer;
+}
+
+#detailedResultsTable th, #detailedResultsTable td {
+    width: 15%;
+}
+
+#detailedResultsTable th:nth-child(3), #detailedResultsTable td:nth-child(3) {
+    width: 70%;
 }
