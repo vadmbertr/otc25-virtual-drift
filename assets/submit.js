@@ -126,7 +126,7 @@ function parseGeoJSON(geojson, roundId, participantId) {
         if (feature.geometry.type === 'Polygon') {
             const area = turf.area(feature) / 1e6;  // km^2
 
-            if (area > 1000) {
+            if (area > 500) {
                 predictionData.length = 0;
                 error = `Polygon ${index + 1} is too large. Aborting...`;
                 return;
