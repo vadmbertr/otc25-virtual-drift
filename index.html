@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OTC25,  Drifters Predictions</title>
+    <title>Virtual drift</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -20,7 +20,7 @@
                 <span class="arrow-symbol">&laquo;</span>
                 <span class="arrow-text">Leaderboard</span>
             </a>
-            <h1>OTC25 Position Prediction</h1>
+            <h1>Virtual drift</h1>
             <a href="submit.html" class="arrow right">
                 <span class="arrow-text">Submission</span>
                 <span class="arrow-symbol">&raquo;</span>
@@ -35,16 +35,12 @@
         </p>
 
         <p>
-            Rather than predicting the exact position of the drifters, you are asked for each drifter to estimate a search area where it is likely to be found.
-        </p>
-
-        <p>
             Several rounds of predictions will be held every week. <br>
             <b>The mini-competition is due to start at the beginning of May</b>, and the precise schedule of the rounds will be announced here at that time.
         </p>
 
         <p>
-            The participant with the most successes across rounds and drifters will be declared the winner.
+            The participant with the most accurate predictions across rounds and drifters will be declared the winner.
         </p>
 
         <h2>Getting started</h2>
@@ -57,7 +53,7 @@
                 <li>Visit the <a href="https://odl.bzh/f2MqL0VK" target="_blank">Ocean Virtual Laboratory portal</a>.</li>
                 <ol>
                     <li>Play with the displayed data and the time wheel.</li>
-                    <li>Draw your search areas, each <b>smaller than 500 km<sup>2</sup></b>.</li>
+                    <li>Place your predicted points.</li>
                     <li>Download them as a GeoJSON file.</li>
                 </ol>
                 <li>Submit your predictions <b>before 6:00 PM CET</b> using this <a href="./submit.html">form</a>.</li>
@@ -69,22 +65,14 @@
 
         <p>
             <ul>
-                <li>Each participant can submit only one prediction file per round (participants can update their prediction during a round: if multiple predictions are submitted for the same round, the last attempt is used).</li>
+                <li>Participants can update their prediction during a round: if multiple predictions are submitted for the same round, only the last one is used.</li>
                 <li>A round starts at 8:00 AM CET and ends at 6:00 PM CET on the same day.</li>
                 <li>A submission consists of a GeoJSON file containing one "feature" per drifter.</li>
-                <li>Each "feature" must have a "geometry" field with a "Polygon" type.</li>
+                <li>Each "feature" must have a "geometry" field with a "Point" type.</li>
                 <li>Each "feature" must have a "properties" field with a "text" property whose value is the ID of the drifter.</li>
-                <li>Each "Polygon" must have an area smaller than or equal to 500 km<sup>2</sup>.</li>
                 <li>The submission file must be uploaded using this <a href="./submit.html" target="_blank">form</a>.</li>
                 <li>The submission file must be uploaded before the 6:00 PM deadline.</li>
-                <li>A prediction is successful if the predicted area contains its drifter position.</li>
-                <li>The winner is determined as follows:</li>
-                <ol>
-                    <li>Highest total number of successes across all rounds and drifters,</li>
-                    <li>In case of ties: smallest sum of the successful prediction zone areas across rounds and drifters,</li>
-                    <li>In case of ties: smallest sum of the distances between the prediction zone's barycenter and the drifter's position across rounds and drifters,</li>
-                    <li>In case of ties: no coin flip, you will have the share the prize (if any).</li>
-                </ol>
+                <li>The leaderboard is determined using the distance between the predicted and the observed positions, averaged across rounds and drifters (lowest is best).</li>
             </ul>
         </p>
     </div>

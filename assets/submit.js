@@ -123,28 +123,25 @@ function parseGeoJSON(geojson, roundId, participantId) {
     }
 
     geojson.features.forEach((feature, index) => {
-        if (feature.geometry.type === 'Polygon') {
-            const area = turf.area(feature) / 1e6;  // km^2
-
-            if (area > 500) {
-                predictionData.length = 0;
-                error = `Polygon ${index + 1} is too large. Aborting...`;
-                return;
-            }
-
-            const prediction = {
-                drifter_id: feature.properties.text,
-                round_id: roundId,
-                participant_id: participantId,
-                zone: Terraformer.geojsonToWKT(feature.geometry)
-            };
-            predictionData.push(prediction);
-
-        } else {
+        if (!feature.properties.text) {
             predictionData.length = 0;
-            error = `Feature ${index + 1} is not a polygon. Aborting...`;
+            error = `Feature ${index + 1} does not have a 'text' property. Aborting...`;
             return;
         }
+
+        if (feature.geometry.type !== 'Point') {
+            predictionData.length = 0;
+            error = `Feature ${index + 1} is not a point. Aborting...`;
+            return;
+        }
+
+        const prediction = {
+            drifter_id: feature.properties.text,
+            round_id: roundId,
+            participant_id: participantId,
+            point: Terraformer.geojsonToWKT(feature.geometry)
+        };
+        predictionData.push(prediction);
     });
 
     return { data: predictionData, error: error };

@@ -1,8 +1,8 @@
 async function fetchLeaderboard() {
     const { data, error } = await supabaseClient
         .from("leaderboard")
-        .select("participants (id, first_name, last_name, affiliation), successes")
-        .order("successes", { ascending: false });
+        .select("participants (id, first_name, last_name, affiliation), avg_distance")
+        .order("avg_distance", { ascending: true });
 
     if (error) {
         console.error("Error fetching leaderboard:", error);
@@ -27,7 +27,7 @@ function populateTable(data) {
         const row = `<tr class="${rankClass}" data-id="${entry.participants.id}" data-name="${entry.participants.first_name} ${entry.participants.last_name}">
             <td>${index + 1}</td>
             <td>${entry.participants.first_name} ${entry.participants.last_name} ${affiliation}</td>
-            <td>${entry.successes}</td>
+            <td>${entry.avg_distance}</td>
         </tr>`;
 
         tableBody.innerHTML += row;
@@ -44,7 +44,7 @@ function populateTable(data) {
             const popupContent = document.querySelector("#popup-content");
             popupContent.innerHTML = `<h3>${participantName} detailed results</h3>`;
 
-            const { data, error } = await supabaseClient.rpc('get_participant_successes', {
+            const { data, error } = await supabaseClient.rpc('get_participant_score', {
                 p_id: participantId,
               });
 
@@ -59,7 +59,7 @@ function populateTable(data) {
             const headerRow = document.createElement('tr');
             headerRow.innerHTML = `
                 <th>Round</th>
-                <th>Successes</th>
+                <th>Score</th>
                 <th></th>
             `;
             table.appendChild(headerRow);
@@ -69,7 +69,7 @@ function populateTable(data) {
                 const dataRow = document.createElement('tr');
                 dataRow.innerHTML = `
                     <td>${roundId}</td>
-                    <td>${row.success_count}</td>
+                    <td>${row.score}</td>
                     <td></td>
                 `;
                 table.appendChild(dataRow);
