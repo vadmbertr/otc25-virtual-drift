@@ -15,38 +15,30 @@ async function populatePopupContent() {
         if (isSameDay) {
             const nowDateTime = new Date(today);
 
-            const target8AM = new Date(nowDateTime);
-            target8AM.setHours(8, 0, 0, 0);
+            const target12noon = new Date(nowDateTime);
+            target12noon.setHours(12, 0, 0, 0);
 
-            const target6PM = new Date(nowDateTime);
-            target6PM.setHours(18, 0, 0, 0);
+            const target8PM = new Date(nowDateTime);
+            target8PM.setHours(20, 0, 0, 0);
 
             const currentTime = nowDateTime.getTime();
 
-            if (currentTime < target8AM.getTime()) {
-                const diffMillis = target8AM.getTime() - currentTime;
+            if (currentTime < target12noon.getTime()) {
+                const diffMillis = target12noon.getTime() - currentTime;
                 const hours = Math.floor(diffMillis / (1000 * 60 * 60));
                 const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
-                popupText = `Today round will opened at 8:00 AM CET, visit the <a href="./submit.html">submission</a> page in ${hours} hours and ${minutes} minutes...`;
-            } else if (currentTime < target6PM.getTime()) {
-                const diffMillis = target6PM.getTime() - currentTime;
+                popupText = `Today round will opened at 12 noon CET. <br> Visit the <a href="./submit.html">submission</a> page in ${hours} hours and ${minutes} minutes...`;
+            } else if (currentTime < target8PM.getTime()) {
+                const diffMillis = target8PM.getTime() - currentTime;
                 const hours = Math.floor(diffMillis / (1000 * 60 * 60));
                 const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
 
-                popupText = `Today round is opened, <a href="./submit.html">submit your preditions</a>! It will closed at 6:00 PM CET: ${hours} hours and ${minutes} minutes left!`;
-
-                const form = document.getElementById('uploadForm');
-                const inputs = form.querySelectorAll('input');
-                const button = form.querySelector('button');
-                for (let i = 0; i < inputs.length; i++) {
-                    inputs[i].disabled = false;
-                }
-                button.disabled = false;
+                popupText = `Today round is opened, <a href="./submit.html">submit your preditions</a>! <br> It will closed at 8:00 PM CET: ${hours} hours and ${minutes} minutes left!`;
             } else {
-                const diffMillis = currentTime - target6PM.getTime();
+                const diffMillis = currentTime - target8PM.getTime();
                 const hours = Math.floor(diffMillis / (1000 * 60 * 60));
                 const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
-                popupText = `Today round closed at 6:00 PM CET, ${hours} hours and ${minutes} minutes ago. Check the <a href="./leaderboard.html">leaderboard</a>!`;
+                popupText = `Today round closed at 8:00 PM CET, ${hours} hours and ${minutes} minutes ago. <br> Check the <a href="./leaderboard.html">leaderboard</a>!`;
             }
         } else {
             const dateString = new Intl.DateTimeFormat('en-US', {

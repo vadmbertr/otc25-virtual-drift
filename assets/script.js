@@ -1,7 +1,5 @@
-//const SUPABASE_URL = 'https://bejcftxathhgnorothbj.supabase.co';
-//const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJlamNmdHhhdGhoZ25vcm90aGJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEzNDM0MTksImV4cCI6MjA1NjkxOTQxOX0.-3zrtrT_-AQV-7YwD8K8WYbpY4M05YAsnm_CC_3KPkA';
-const SUPABASE_URL = 'https://ssbpkjwusdkszngavdie.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNzYnBrand1c2Rrc3puZ2F2ZGllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDIzMDg3ODksImV4cCI6MjA1Nzg4NDc4OX0.5L6R3LOBABoGE2HvrRnj0dAi5Mml6HpcHxP6TyJCOTA';
+const SUPABASE_URL = 'https://uwwelqkjqispfbmthgmx.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3d2VscWtqcWlzcGZibXRoZ214Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM1ODY4MDQsImV4cCI6MjA1OTE2MjgwNH0.7mu8zgwXQcVwRltXdQzlCQGugWOAXDYICYh2RRL9cYE';
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 

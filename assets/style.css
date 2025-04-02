@@ -12,7 +12,7 @@ body {
     padding: 0px 20px 20px 20px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    width: 80%;
+    width: 100%;
     max-width: 800px;
     line-height: 1.6;
 }
@@ -97,6 +97,7 @@ sup {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-align: center;
 }
 
 .nav-arrows h1 {

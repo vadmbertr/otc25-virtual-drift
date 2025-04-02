@@ -17,27 +17,27 @@ async function populatePopupContent() {
         if (isSameDay) {
             const nowDateTime = new Date(today);
 
-            const target8AM = new Date(nowDateTime);
-            target8AM.setHours(8, 0, 0, 0);
+            const target12noon = new Date(nowDateTime);
+            target12noon.setHours(12, 0, 0, 0);
 
-            const target6PM = new Date(nowDateTime);
-            target6PM.setHours(18, 0, 0, 0);
+            const target8PM = new Date(nowDateTime);
+            target8PM.setHours(20, 0, 0, 0);
 
             const currentTime = nowDateTime.getTime();
 
-            if (currentTime < target8AM.getTime()) {
-                const diffMillis = target8AM.getTime() - currentTime;
+            if (currentTime < target12noon.getTime()) {
+                const diffMillis = target12noon.getTime() - currentTime;
                 const hours = Math.floor(diffMillis / (1000 * 60 * 60));
                 const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
-                popupText = `Today round will opened at 8:00 AM CET, come back in ${hours} hours and ${minutes} minutes...`;
-            } else if (currentTime < target6PM.getTime()) {
-                const diffMillis = target6PM.getTime() - currentTime;
+                popupText = `Today round will opened at 12 noon CET. <br> Come back in ${hours} hours and ${minutes} minutes...`;
+            } else if (currentTime < target8PM.getTime()) {
+                const diffMillis = target8PM.getTime() - currentTime;
                 const hours = Math.floor(diffMillis / (1000 * 60 * 60));
                 const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
 
                 popupElem.classList.add('ok');
                 popupElem.classList.remove('warning');
-                popupText = `Today round is opened! It will closed at 6:00 PM CET: ${hours} hours and ${minutes} minutes left!`;
+                popupText = `Today round is opened! <br> It will closed at 8:00 PM CET: ${hours} hours and ${minutes} minutes left!`;
 
                 const form = document.getElementById('uploadForm');
                 const inputs = form.querySelectorAll('input');
@@ -47,10 +47,10 @@ async function populatePopupContent() {
                 }
                 button.disabled = false;
             } else {
-                const diffMillis = currentTime - target6PM.getTime();
+                const diffMillis = currentTime - target8PM.getTime();
                 const hours = Math.floor(diffMillis / (1000 * 60 * 60));
                 const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
-                popupText = `Today round closed at 6:00 PM CET, ${hours} hours and ${minutes} minutes ago. Check the <a href="./leaderboard.html">leaderboard</a>!`;
+                popupText = `Today round closed at 8:00 PM CET, ${hours} hours and ${minutes} minutes ago. <br> Check the <a href="./leaderboard.html">leaderboard</a>!`;
             }
         } else {
             const dateString = new Intl.DateTimeFormat('en-US', {
@@ -113,7 +113,7 @@ function validateForm(event) {
 }
 
 
-function parseGeoJSON(geojson, roundId, participantId) {
+function parseGeoJSON(geojson, participantId, roundId, driftersMap) {
     let error = null;
     const predictionData = [];
 
@@ -135,11 +135,19 @@ function parseGeoJSON(geojson, roundId, participantId) {
             return;
         }
 
+        const drifterLongId = feature.properties.text;
+        if (!driftersMap[drifterLongId]) {
+            predictionData.length = 0;
+            error = `Drifter ${drifterLongId} not found in the database. Aborting...`;
+            return;
+        }
+        const drifterId = driftersMap[drifterLongId];
+
         const prediction = {
-            drifter_id: feature.properties.text,
-            round_id: roundId,
             participant_id: participantId,
-            point: Terraformer.geojsonToWKT(feature.geometry)
+            drifter_id: drifterId,
+            round_id: roundId,
+            position: Terraformer.geojsonToWKT(feature.geometry)
         };
         predictionData.push(prediction);
     });
@@ -194,12 +202,24 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
             return;
         }
 
+        const { data: drifters, error: drifterError } = await supabaseClient
+            .from('drifters')
+            .select('id, long_id');
+
+        if (drifterError) {
+            displayError(statusText, drifterError);
+            return;
+        }
+
+        const driftersMap = {};
+        drifters.forEach(drifter => {driftersMap[drifter.long_id] = drifter.id;});
+
         const reader = new FileReader();
 
         reader.onload = async function (e) {
             try {
                 const geojson = JSON.parse(e.target.result);
-                const { data: predictionData, error: parsingError } = parseGeoJSON(geojson, roundId[0].id, participantId[0].id);
+                const { data: predictionData, error: parsingError } = parseGeoJSON(geojson, participantId[0].id, roundId[0].id, driftersMap);
 
                 if (parsingError) {
                     displayError(statusText, parsingError);

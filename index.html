@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virtual drift</title>
+    <title>Ocean Virtual Drift Challenge</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -20,7 +20,7 @@
                 <span class="arrow-symbol">&laquo;</span>
                 <span class="arrow-text">Leaderboard</span>
             </a>
-            <h1>Virtual drift</h1>
+            <h1>Ocean Virtual Drift Challenge</h1>
             <a href="submit.html" class="arrow right">
                 <span class="arrow-text">Submission</span>
                 <span class="arrow-symbol">&raquo;</span>
@@ -30,7 +30,7 @@
         <h2>Objective</h2>
 
         <p>
-            The goal of this mini-competition is to predict the position of 5 drifters a few days after their last known position, based on the drifters trajectories up to the last known position and several collocated physical fields (currents, waves, wind, etc...). <br>
+            The goal of the Ocean Virtual Drift Challenge is to predict the position of 5 drifters a few days after their last known position, based on the drifters trajectories up to the last known position and several collocated physical fields (currents, waves, wind, etc...). <br>
             The drifters will be deployed in May during the <a href="https://oceantrainingcourse2025.esa.int/" target="_blank">2025 ESA Ocean Training Course</a> .
         </p>
 
@@ -41,11 +41,13 @@
 
         <p>
             The game is a reconstruction problem rather than a prediction one, meaning that the participants will always have access to observed physical fields, even when drifter trajectories are unknown. <br>
-            For example, to estimate a drifter position on Monday when it was last observed on the previous Thursday, participants will have access to the physical fields from the entire preceding week, as well as the drifter’s trajectory from Monday to Thursday of that week.
+            For example, to estimate a drifter position on Monday when it was last observed on the previous Thursday, participants will have access to the physical fields from the entire preceding week, as well as the drifter’s trajectory from Monday to Thursday of the preceding week.
         </p>
 
         <p>
-            The participant with the most accurate predictions across rounds and drifters will be declared the winner.
+            For each round and drifter, participants are ranked based on the distance between their predicted position and the observed position (the smallest distance gives the first place).
+            The inverse of the rank is used to compute a score per round and drifters (highest score is best). <br>
+            The participant with the highest sum of scores across rounds and drifters will be declared the overall winner.
         </p>
 
         <h2>Getting started</h2>
@@ -77,7 +79,9 @@
                 <li>Each "feature" must have a "properties" field with a "text" property whose value is the ID of the drifter.</li>
                 <li>The submission file must be uploaded using this <a href="./submit.html" target="_blank">form</a>.</li>
                 <li>The submission file must be uploaded before the 6:00 PM deadline.</li>
-                <li>The leaderboard is determined using the distance between the predicted and the observed positions, averaged across rounds and drifters (lowest is best).</li>
+                <li>For each round and drifter, participants are ranked based on the distance between their predicted position and the observed position (the smallest distance gives the first place).</li>
+                <li>The inverse of the rank is used to compute a score per round and drifters (highest score is best).</li>
+                <li>The participant with the highest sum of scores across rounds and drifters will be declared the overall winner.</li>
             </ul>
         </p>
     </div>

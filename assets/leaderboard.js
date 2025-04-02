@@ -1,8 +1,8 @@
 async function fetchLeaderboard() {
     const { data, error } = await supabaseClient
         .from("leaderboard")
-        .select("participants (id, first_name, last_name, affiliation), avg_distance")
-        .order("avg_distance", { ascending: true });
+        .select("participants (id, first_name, last_name, affiliation), score")
+        .order("score", { ascending: false });
 
     if (error) {
         console.error("Error fetching leaderboard:", error);
@@ -27,7 +27,7 @@ function populateTable(data) {
         const row = `<tr class="${rankClass}" data-id="${entry.participants.id}" data-name="${entry.participants.first_name} ${entry.participants.last_name}">
             <td>${index + 1}</td>
             <td>${entry.participants.first_name} ${entry.participants.last_name} ${affiliation}</td>
-            <td>${entry.avg_distance}</td>
+            <td>${entry.score}</td>
         </tr>`;
 
         tableBody.innerHTML += row;
@@ -66,9 +66,10 @@ function populateTable(data) {
 
             data.forEach(row => {
                 const roundId = row.round_id;
+                const roundDay = row.round_day;
                 const dataRow = document.createElement('tr');
                 dataRow.innerHTML = `
-                    <td>${roundId}</td>
+                    <td>${roundDay}</td>
                     <td>${row.score}</td>
                     <td></td>
                 `;
@@ -93,11 +94,15 @@ function populateTable(data) {
                     const geojson = {
                         type: "FeatureCollection",
                         features: data.map(row => ({
-                            type: "Feature",
+                            type: "Feature", 
                             properties: {
+                                timespan: {
+                                    start: "2025-01-01T00:00:00.000Z",
+                                    end: "2025-12-31T23:59:59.999Z"
+                                },
                                 text: `${row.drifter_id}`
                             },
-                            geometry: Terraformer.wktToGeoJSON(row.zone)
+                            geometry: Terraformer.wktToGeoJSON(row.position)
                         }))
                     };
                 
