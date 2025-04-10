@@ -59,7 +59,7 @@ function populateTable(data) {
             const headerRow = document.createElement('tr');
             headerRow.innerHTML = `
                 <th>Round</th>
-                <th>Score</th>
+                <th>Points</th>
                 <th></th>
             `;
             table.appendChild(headerRow);
