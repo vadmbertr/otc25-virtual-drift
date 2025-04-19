@@ -30,17 +30,17 @@
         <h2>Objective</h2>
 
         <p>
-            The goal of the Ocean Virtual Drift Challenge is to predict the position of 5 drifters a few days after their last known position, based on the drifters trajectories up to the last known position and several collocated physical fields (currents, waves, wind, etc...). <br>
+            The goal of the Ocean Virtual Drift Challenge is to predict the position of 5 drifters 3 days after their last known position, based on the drifters trajectories up to the last known position and several collocated physical fields (currents, waves, wind, etc...). <br>
             The drifters will be deployed in May during the <a href="https://oceantrainingcourse2025.esa.int/" target="_blank">2025 ESA Ocean Training Course</a> .
         </p>
 
         <p>
             The game is a reconstruction problem rather than a prediction one, meaning that the participants will always have access to observed physical fields, even when drifter trajectories are unknown. <br>
-            For example, to estimate a drifter position on Monday when it was last observed on the previous Thursday, participants will have access to the physical fields from the entire preceding week, as well as the drifter’s trajectory from Monday to Thursday of the preceding week.
+            For example, to estimate a drifter position on Monday when it was last observed on the previous Friday, participants will have access to the physical fields from the entire preceding week, as well as the drifter’s trajectory from Monday to Friday of the preceding week.
         </p>
 
         <p>
-            Two rounds of predictions will be held every week (on Monday and Thursday) during about a month. <br>
+            Two rounds of predictions are expected to be held every week on Monday and Thursday during about a month. <br>
             <b>The mini-competition is due to start mid-May</b>, and the precise schedule of the rounds will be announced here at that time. <br>
             You can subscribe to <a href="https://listes.univ-grenoble-alpes.fr/sympa/info/virtual-drift" target="_blank">this mailing list</a> to be notified when the competition starts and get updates after each round.
         </p>
@@ -56,7 +56,7 @@
         <b><i>Full demo video <a href="#">here</a>!</i></b>
 
         <p>
-            For each round (8:00 AM CET to 6:00 PM CET):
+            For each round (8:00 AM CET to 8:00 PM CET):
             <ol>
                 <li>Visit the <a href="https://odl.bzh/X1uNORpw" target="_blank">Ocean Virtual Laboratory portal</a>.</li>
                 <ol>
@@ -64,8 +64,8 @@
                     <li>Place your predicted points.</li>
                     <li>Download them as a GeoJSON file.</li>
                 </ol>
-                <li>Submit your predictions <b>before 6:00 PM CET</b> using this <a href="./submit.html">form</a>.</li>
-                <li>At the end of the round, around 6:15 PM CET, check the updated <a href="./leaderboard.html">leaderboard</a>.</li>
+                <li>Submit your predictions <b>before 8:00 PM CET</b> using this <a href="./submit.html">form</a>.</li>
+                <li>At the end of the round, around 8:15 PM CET, check the updated <a href="./leaderboard.html">leaderboard</a>.</li>
             </ol>
         </p>
 
@@ -73,16 +73,17 @@
 
         <p>
             <ul>
-                <li>Participants can update their prediction during a round: if multiple predictions are submitted for the same round, only the last one is used.</li>
-                <li>A round starts at 8:00 AM CET and ends at 6:00 PM CET on the same day.</li>
+                <li>A round starts at 8:00 AM CET and ends at 8:00 PM CET on the same day.</li>
                 <li>A submission consists of a GeoJSON file containing one "feature" per drifter.</li>
                 <li>Each "feature" must have a "geometry" field with a "Point" type.</li>
                 <li>Each "feature" must have a "properties" field with a "text" property whose value is the ID of the drifter.</li>
                 <li>The submission file must be uploaded using this <a href="./submit.html" target="_blank">form</a>.</li>
-                <li>The submission file must be uploaded before the 6:00 PM deadline.</li>
+                <li>The submission file must be uploaded before the 8:00 PM deadline.</li>
+                <li>Participants can update their prediction during a round: if multiple predictions are submitted for the same round, only the last one is used.</li>
+                <li>The observed position of each drifter around (i.e. closest to) 6:00 PM on the day of the round will be used as reference to compute scores.</li>
                 <li>For each round and drifter, participants earn points based on the distance between their predicted position and the observed position.</li>
                 <li>Points are computed by dividing the smallest distance across participants by the distance of each participant, multiplied by the distance between the drifter's position at time t0 and the drifter's position at time t0 + 3 days.</li>
-                <li>The participant with the highest sum of points across rounds and drifters will be declared the overall winner.</li>
+                <li>The participant with the highest sum of points (the score) across rounds and drifters will be declared the overall winner.</li>
             </ul>
         </p>
     </div>
