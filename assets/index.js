@@ -15,19 +15,19 @@ async function populatePopupContent() {
         if (isSameDay) {
             const nowDateTime = new Date(today);
 
-            const target12noon = new Date(nowDateTime);
-            target12noon.setHours(12, 0, 0, 0);
+            const target8AM = new Date(nowDateTime);
+            target8AM.setHours(8, 0, 0, 0);
 
             const target8PM = new Date(nowDateTime);
             target8PM.setHours(20, 0, 0, 0);
 
             const currentTime = nowDateTime.getTime();
 
-            if (currentTime < target12noon.getTime()) {
-                const diffMillis = target12noon.getTime() - currentTime;
+            if (currentTime < target8AM.getTime()) {
+                const diffMillis = target8AM.getTime() - currentTime;
                 const hours = Math.floor(diffMillis / (1000 * 60 * 60));
                 const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
-                popupText = `Today round will opened at 12 noon CET. <br> Visit the <a href="./submit.html">submission</a> page in ${hours} hours and ${minutes} minutes...`;
+                popupText = `Today round will opened at 8:00 AM CET. <br> Visit the <a href="./submit.html">submission</a> page in ${hours} hours and ${minutes} minutes...`;
             } else if (currentTime < target8PM.getTime()) {
                 const diffMillis = target8PM.getTime() - currentTime;
                 const hours = Math.floor(diffMillis / (1000 * 60 * 60));
