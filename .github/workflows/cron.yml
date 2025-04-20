@@ -3,6 +3,7 @@ name: Import drifters positions to Supabase
 on:
   schedule:
     - cron: '*/30 * * * *'
+  workflow_dispatch:
 
 jobs:
   call-edge-function:
