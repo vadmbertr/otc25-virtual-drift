@@ -1,0 +1,15 @@
+name: Import drifters positions to Supabase
+
+on:
+  schedule:
+    - cron: '30 * * * *'
+
+jobs:
+  call-edge-function:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call Supabase Edge Function
+        run: |
+          curl -X POST "https://wusouxztqofazsevackj.supabase.co/functions/v1/import-positions" \
+            -H "Content-Type: application/json"
