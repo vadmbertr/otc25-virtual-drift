@@ -1,4 +1,4 @@
-name: Import drifters positions to Supabase
+name: Import drifters positions to Supabase - Test
 
 on:
   schedule:
