@@ -1,4 +1,4 @@
-name: Import drifters positions to Supabase
+name: Import drifters positions to Supabase - Test
 
 on:
   schedule:
@@ -12,5 +12,5 @@ jobs:
     steps:
       - name: Call Supabase Edge Function
         run: |
-          curl -X POST "https://wusouxztqofazsevackj.supabase.co/functions/v1/import-positions" \
+          curl -X POST "https://uwwelqkjqispfbmthgmx.supabase.co/functions/v1/import-positions" \
             -H "Content-Type: application/json"
